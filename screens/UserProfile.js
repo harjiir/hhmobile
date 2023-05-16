@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Alert, ImageBackground } from 'react-native';
 import { useNavigation, CommonActions } from "@react-navigation/native";
 
 // firebase auth
@@ -39,38 +39,46 @@ export default function UserProfile() {
     }
 
     return (
-        <View style={styles.container}>
-            <Text>{auth.currentUser?.email}</Text>
-            <TouchableOpacity style={styles.deleteButton} onPress={() => Alert.alert(
-                "Delete account?",
-                "This can't be undone! Are you sure you want to delete this account?",
-                [
-                    {
-                        text: 'No',
-                        style: 'cancel'
-                    },
-                    {
-                        // if yes, delete account
-                        text: 'Yes',
-                        onPress: () => handleDeleteUser()
-                    }
-                ])}>
-                <Text style={styles.text}>Delete account</Text>
-            </TouchableOpacity>
-        </View >
+        <ImageBackground style={styles.bg} source={require('../img/bg.png')}>
+            <View style={styles.container}>
+                <Text style={styles.currentUser}>{auth.currentUser?.email}</Text>
+                <TouchableOpacity style={styles.deleteButton} onPress={() => Alert.alert(
+                    "Delete account?",
+                    "This can't be undone! Are you sure you want to delete this account?",
+                    [
+                        {
+                            text: 'No',
+                            style: 'cancel'
+                        },
+                        {
+                            // if yes, delete account
+                            text: 'Yes',
+                            onPress: () => handleDeleteUser()
+                        }
+                    ])}>
+                    <Text style={styles.text}>Delete account</Text>
+                </TouchableOpacity>
+            </View >
+        </ImageBackground>
     );
 
 }
 
 const styles = StyleSheet.create({
+    bg: { height: '100%', width: '100%' },
     container: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
     },
+    currentUser: {
+        fontSize: 20,
+        fontWeight: 'bold'
+    },
     deleteButton: {
         padding: 10,
-        marginTop: 50
+        position: 'absolute',
+        bottom: 100,
     },
     text: {
         color: 'red',

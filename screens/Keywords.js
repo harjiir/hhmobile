@@ -14,9 +14,10 @@ import KeywordCard from '../components/KeywordCard';
 export default function Keywords() {
 
     const [keywords, setKeywords] = useState([]);
-    const [isLoading, setIsLoading] = useState(false)
+    const [filteredData, setFilteredData] = useState([])
     const [error, setError] = useState('')
     const [search, setSearch] = useState('')
+    const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
         setIsLoading(true)
@@ -25,6 +26,13 @@ export default function Keywords() {
             const q = query(collectionRef, orderBy("name"))
             const unsubscribe = onSnapshot(q, (snapshot) => {
                 setKeywords(
+                    snapshot.docs.map((doc) => ({
+                        name: doc.data().name,
+                        description: doc.data().description
+                    }))
+                );
+                // for filtering
+                setFilteredData(
                     snapshot.docs.map((doc) => ({
                         name: doc.data().name,
                         description: doc.data().description
@@ -50,9 +58,28 @@ export default function Keywords() {
     if (error) {
         return (
             <View style={{ flex: 1, justifyContent: 'center' }}>
-                <Text>No #keywords found...</Text>
+                <Text>No keywords found...</Text>
             </View>
         );
+    }
+
+    // Search bar for keywords
+    const searchKeyword = (text) => {
+        if (text) {
+            const newData = keywords.filter((item) => {
+                const itemData =
+                    item.name
+                        ? item.name
+                        : ''
+                const textData = text
+                return itemData.indexOf(textData) > -1
+            })
+            setFilteredData(newData)
+            setSearch(text)
+        } else {
+            setFilteredData(keywords)
+            setSearch(text)
+        }
     }
 
     return (
@@ -64,11 +91,11 @@ export default function Keywords() {
                     style={styles.input}
                     autoCorrect={false}
                     value={search}
-                    onChangeText={(text) => setSearch(text)}
+                    onChangeText={(text) => searchKeyword(text)}
                 />
             </View>
             <FlatList
-                data={keywords}
+                data={filteredData}
                 renderItem={({ item }) => <KeywordCard item={item} />}
             />
         </View>

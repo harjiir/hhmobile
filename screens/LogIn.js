@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { StyleSheet, View, Text, KeyboardAvoidingView, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { StyleSheet, View, Text, KeyboardAvoidingView, TextInput, TouchableOpacity, ActivityIndicator, ImageBackground } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 
 import BigLogo from '../components/BigLogo';
@@ -88,44 +88,50 @@ export default function LogIn() {
     }
 
     return (
-        <KeyboardAvoidingView style={styles.container}>
-            <BigLogo />
-            <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.primary, marginBottom: 20 }}>Log In</Text>
-            <View style={styles.inputContainer}>
-                <TextInput
-                    placeholder="Email"
-                    value={email}
-                    onChangeText={value => setEmail(value)}
-                    style={styles.input}
-                />
-                <TextInput
-                    placeholder="Password"
-                    value={password}
-                    onChangeText={value => setPassword(value)}
-                    style={styles.input}
-                    secureTextEntry
-                />
-                {/* Show error message for invalid login */}
-                <Text style={styles.invalidLogInMessage}>{errorMsg}</Text>
-            </View>
-            <View style={styles.buttonContainer}>
-                <TouchableOpacity onPress={handleSignIn} style={styles.logInButton}>
-                    <Text style={styles.logInText}>Log In</Text>
-                </TouchableOpacity>
-                <Text style={{ color: COLORS.primary, fontSize: 18, fontWeight: 'bold', marginTop: 50 }}>Don't have an account?</Text>
-                <TouchableOpacity onPress={() => navigation.navigate('SignUp')} style={styles.accountButton}>
-                    <Text style={styles.accountText}>Sign Up</Text>
-                </TouchableOpacity>
-            </View>
-        </KeyboardAvoidingView>
+        <ImageBackground style={styles.bg} source={require('../img/bg.png')}>
+            <KeyboardAvoidingView style={styles.container}>
+                <BigLogo />
+                <Text style={{ marginTop: 80, fontSize: 20, fontWeight: 'bold', color: COLORS.primary, marginBottom: 20 }}>Log In</Text>
+                <View style={styles.inputContainer}>
+                    <TextInput
+                        placeholder="Email"
+                        value={email}
+                        onChangeText={value => setEmail(value)}
+                        style={styles.input}
+                    />
+                    <TextInput
+                        placeholder="Password"
+                        value={password}
+                        onChangeText={value => setPassword(value)}
+                        style={styles.input}
+                        secureTextEntry
+                    />
+                    {/* Show error message for invalid login */}
+                    <Text style={styles.invalidLogInMessage}>{errorMsg}</Text>
+                </View>
+                <View style={styles.buttonContainer}>
+                    <TouchableOpacity onPress={handleSignIn} style={styles.logInButton}>
+                        <Text style={styles.logInText}>Log In</Text>
+                    </TouchableOpacity>
+                    <Text style={{ color: COLORS.primary, fontSize: 18, fontWeight: 'bold', marginTop: 50 }}>Don't have an account?</Text>
+                    <TouchableOpacity onPress={() => navigation.navigate('SignUp')} style={styles.accountButton}>
+                        <Text style={styles.accountText}>Sign Up</Text>
+                    </TouchableOpacity>
+                </View>
+            </KeyboardAvoidingView>
+        </ImageBackground>
     );
 }
 
 const styles = StyleSheet.create({
+    bg: {
+        width: '100%',
+        height: '100%'
+    },
     container: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     invalidLogInMessage: {
         color: COLORS.secondary,
@@ -145,7 +151,6 @@ const styles = StyleSheet.create({
         width: '60%',
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 10
     },
     logInButton: {
         backgroundColor: COLORS.secondary,

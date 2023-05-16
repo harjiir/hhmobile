@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { StyleSheet, View, Text, KeyboardAvoidingView, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, KeyboardAvoidingView, TextInput, TouchableOpacity, ImageBackground } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 
 // firebase auth
@@ -74,45 +74,51 @@ export default function SignUp() {
     }
 
     return (
-        <KeyboardAvoidingView style={styles.container}>
-            <Text style={styles.header}>Create an Account</Text>
-            {/* Error message for invalid login */}
-            <Text style={styles.invalidLogInMessage}>{errorMsg}</Text>
-            <View style={styles.inputContainer}>
-                <TextInput
-                    placeholder="Email"
-                    value={email}
-                    onChangeText={text => setEmail(text)}
-                    style={styles.input}
-                />
-                <TextInput
-                    placeholder="Password"
-                    value={password}
-                    onChangeText={text => setPassword(text)}
-                    style={styles.input}
-                    secureTextEntry
-                />
-                <TextInput
-                    placeholder="Repeat password"
-                    value={repeatPassword}
-                    onChangeText={text => setRepeatPassword(text)}
-                    style={styles.input}
-                    secureTextEntry
-                />
-            </View>
-            <View style={styles.buttonContainer}>
-                <TouchableOpacity onPress={handleCreateUser} style={styles.submitButton}>
-                    <Text style={styles.accountText}>Sign Up</Text>
-                </TouchableOpacity>
-            </View>
-            <View style={styles.terms}>
-                <Text style={styles.textTerms}>By registering, you confirm that you accept our <Text style={styles.link}>Terms of Use and Privacy Policy</Text></Text>
-            </View>
-        </KeyboardAvoidingView>
+        <ImageBackground style={styles.bg} source={require('../img/bg.png')}>
+            <KeyboardAvoidingView style={styles.container}>
+                <Text style={styles.header}>Create an Account</Text>
+                {/* Error message for invalid login */}
+                <Text style={styles.invalidLogInMessage}>{errorMsg}</Text>
+                <View style={styles.inputContainer}>
+                    <TextInput
+                        placeholder="Email"
+                        value={email}
+                        onChangeText={text => setEmail(text)}
+                        style={styles.input}
+                    />
+                    <TextInput
+                        placeholder="Password"
+                        value={password}
+                        onChangeText={text => setPassword(text)}
+                        style={styles.input}
+                        secureTextEntry
+                    />
+                    <TextInput
+                        placeholder="Repeat password"
+                        value={repeatPassword}
+                        onChangeText={text => setRepeatPassword(text)}
+                        style={styles.input}
+                        secureTextEntry
+                    />
+                </View>
+                <View style={styles.buttonContainer}>
+                    <TouchableOpacity onPress={handleCreateUser} style={styles.submitButton}>
+                        <Text style={styles.accountText}>Sign Up</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.terms}>
+                    <Text style={styles.textTerms}>By registering, you confirm that you accept our <Text style={styles.link}>Terms of Use and Privacy Policy</Text></Text>
+                </View>
+            </KeyboardAvoidingView>
+        </ImageBackground>
     );
 }
 
 const styles = StyleSheet.create({
+    bg: {
+        height: '100%',
+        width: '100%'
+    },
     container: {
         flex: 1,
         justifyContent: 'center',
@@ -123,7 +129,7 @@ const styles = StyleSheet.create({
         width: '100%'
     },
     header: {
-        color: COLORS.primary,
+        color: COLORS.white,
         fontSize: 30,
         fontWeight: 'bold',
         marginBottom: 50

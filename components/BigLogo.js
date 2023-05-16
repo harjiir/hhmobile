@@ -18,11 +18,11 @@ export default function BigLogo() {
 const styles = StyleSheet.create({
     logoContainer: {
         alignItems: 'center',
-        marginBottom: 100
+        marginTop: 100
     },
     logo: {
         fontFamily: 'sans-serif',
         fontSize: 45,
-        color: COLORS.primary,
+        color: COLORS.white,
     }
 });
