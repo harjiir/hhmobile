@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { StyleSheet, View, Text, KeyboardAvoidingView, TextInput, TouchableOpacity, ActivityIndicator, ImageBackground } from 'react-native';
+import { StyleSheet, View, Text, KeyboardAvoidingView, TouchableOpacity, ActivityIndicator, ImageBackground } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
+import { TextInput } from 'react-native-paper';
 
 import BigLogo from '../components/BigLogo';
 
@@ -91,20 +92,24 @@ export default function LogIn() {
         <ImageBackground style={styles.bg} source={require('../img/bg.png')}>
             <KeyboardAvoidingView style={styles.container}>
                 <BigLogo />
-                <Text style={{ marginTop: 80, fontSize: 20, fontWeight: 'bold', color: COLORS.primary, marginBottom: 20 }}>Log In</Text>
+                <Text style={{ marginTop: 80, fontSize: 20, fontWeight: 'bold', color: COLORS.white, marginBottom: 20 }}>Log In</Text>
                 <View style={styles.inputContainer}>
                     <TextInput
-                        placeholder="Email"
+                        label="Email"
                         value={email}
                         onChangeText={value => setEmail(value)}
                         style={styles.input}
+                        underlineColor={COLORS.primary}
+                        activeUnderlineColor={COLORS.primary}
                     />
                     <TextInput
-                        placeholder="Password"
+                        label="Password"
                         value={password}
                         onChangeText={value => setPassword(value)}
                         style={styles.input}
                         secureTextEntry
+                        underlineColor={COLORS.primary}
+                        activeUnderlineColor={COLORS.primary}
                     />
                     {/* Show error message for invalid login */}
                     <Text style={styles.invalidLogInMessage}>{errorMsg}</Text>
@@ -139,13 +144,11 @@ const styles = StyleSheet.create({
         paddingBottom: 10
     },
     inputContainer: {
-        width: '75%',
+        width: '80%',
     },
     input: {
-        backgroundColor: COLORS.white,
-        padding: 10,
+        backgroundColor: 'transparent',
         marginVertical: 5,
-        borderRadius: 10,
     },
     buttonContainer: {
         width: '60%',

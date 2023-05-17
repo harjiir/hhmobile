@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { StyleSheet, View, Text, KeyboardAvoidingView, TextInput, TouchableOpacity, ImageBackground } from 'react-native';
+import { StyleSheet, View, Text, KeyboardAvoidingView, TouchableOpacity, ImageBackground } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
+import { TextInput } from 'react-native-paper';
 
 // firebase auth
 import { createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
@@ -81,24 +82,30 @@ export default function SignUp() {
                 <Text style={styles.invalidLogInMessage}>{errorMsg}</Text>
                 <View style={styles.inputContainer}>
                     <TextInput
-                        placeholder="Email"
+                        label="Email"
                         value={email}
                         onChangeText={text => setEmail(text)}
                         style={styles.input}
+                        underlineColor={COLORS.primary}
+                        activeUnderlineColor={COLORS.primary}
                     />
                     <TextInput
-                        placeholder="Password"
+                        label="Password"
                         value={password}
                         onChangeText={text => setPassword(text)}
                         style={styles.input}
                         secureTextEntry
+                        underlineColor={COLORS.primary}
+                        activeUnderlineColor={COLORS.primary}
                     />
                     <TextInput
-                        placeholder="Repeat password"
+                        label="Repeat password"
                         value={repeatPassword}
                         onChangeText={text => setRepeatPassword(text)}
                         style={styles.input}
                         secureTextEntry
+                        underlineColor={COLORS.primary}
+                        activeUnderlineColor={COLORS.primary}
                     />
                 </View>
                 <View style={styles.buttonContainer}>
@@ -124,10 +131,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    backgroundImage: {
-        height: '100%',
-        width: '100%'
-    },
     header: {
         color: COLORS.white,
         fontSize: 30,
@@ -141,13 +144,11 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     inputContainer: {
-        width: '75%'
+        width: '80%'
     },
     input: {
-        backgroundColor: COLORS.white,
-        padding: 10,
+        backgroundColor: 'transparent',
         marginVertical: 5,
-        borderRadius: 10,
     },
     buttonContainer: {
         width: '50%',
